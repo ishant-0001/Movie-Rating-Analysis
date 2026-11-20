@@ -1,5 +1,10 @@
 import numpy as np
 import pandas as pd
+from pathlib import Path
+
+PROJECT_ROOT = Path(__file__).resolve().parent
+RAW_DATA_PATH = PROJECT_ROOT / "data" / "raw" / "movies.csv"
+PROCESSED_DATA_PATH = PROJECT_ROOT / "data" / "processed" / "cleaned_movies_500.csv"
 
 # ==========================================================
 # 1. LOAD RAW DATA & INITIAL AUDIT
@@ -7,7 +12,7 @@ import pandas as pd
 MISSING_TOKENS = ["", "N/A", "NULL", "None", "?"]
 
 df_raw = pd.read_csv(
-    "movies.csv",
+    RAW_DATA_PATH,
     na_values=MISSING_TOKENS,
     keep_default_na=True,
 )
@@ -149,14 +154,15 @@ df["budget_million"] = (
 )
 
 # Export cleaned CSV
-df.to_csv("cleaned_movies_500.csv", index=False)
+PROCESSED_DATA_PATH.parent.mkdir(parents=True, exist_ok=True)
+df.to_csv(PROCESSED_DATA_PATH, index=False)
 
 print("\n=== 2. CLEANING SUMMARY ===")
 print(f"Original rows:           {len(df_raw)}")
 print(f"Duplicates removed:      {len(df_raw) - rows_before_rating_drop}")
 print(f"Invalid ratings dropped: {dropped_invalid_ratings}")
 print(f"Final clean rows:        {len(df)}")
-print("Exported cleaned data:   cleaned_movies_500.csv")
+print("Exported cleaned data:   data/processed/cleaned_movies_500.csv")
 
 
 # ==========================================================
