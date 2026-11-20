@@ -64,14 +64,12 @@ data/
 └── processed/
     └── cleaned_movies_500.csv
 code.py
-project_code.py
 requirements.txt
 .gitignore
 README.md
 ```
 
-`project_code.py` is the project entry script. `code.py` contains the same
-analysis for compatibility with the original project file.
+`code.py` is the project entry script.
 
 ## How to run
 
@@ -84,7 +82,7 @@ python -m pip install -r requirements.txt
 Run the analysis from the project directory:
 
 ```bash
-python project_code.py
+python code.py
 ```
 
 The script reads the raw CSV and writes the cleaned CSV to the processed-data
